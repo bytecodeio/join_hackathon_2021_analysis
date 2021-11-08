@@ -10,7 +10,11 @@ view: mbb_players_games_sr {
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Abbr Name" in Explore.
-
+dimension: prim_key {
+  type: string
+  primary_key: yes
+  sql: ${game_id} || ${player_id} ;;
+}
   dimension: abbr_name {
     type: string
     sql: ${TABLE}.abbr_name ;;

@@ -10,7 +10,12 @@ view: mbb_historical_teams_games {
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Alias" in Explore.
-
+dimension: prim_key {
+  primary_key: yes
+  description: "There is duplicate data in this table, created closes primary key"
+  type: string
+  sql: ${team_id} || ${opp_id} || ${opp_points_game} || ${points_game} || ${scheduled_date} || ${season} ;;
+}
   dimension: alias {
     type: string
     sql: ${TABLE}.alias ;;

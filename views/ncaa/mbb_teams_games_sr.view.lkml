@@ -174,6 +174,7 @@ view: mbb_teams_games_sr {
 
   dimension: game_id {
     type: string
+    primary_key: yes
     sql: ${TABLE}.game_id ;;
   }
 

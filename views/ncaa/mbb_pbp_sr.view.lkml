@@ -10,7 +10,12 @@ view: mbb_pbp_sr {
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Attendance" in Explore.
-
+# dimension: prim_key {
+#   type: string
+#   primary_key: yes
+#   description: "Closest prim key found. Off by 20,000 records"
+#   sql: ${scheduled_date} || ${away_id} || ${home_id} || ${event_id} || ${period} || ${game_clock} || ${event_type} || ${elapsed_time_sec} || ${timestamp_raw} ;;
+# }
   dimension: attendance {
     type: number
     sql: ${TABLE}.attendance ;;

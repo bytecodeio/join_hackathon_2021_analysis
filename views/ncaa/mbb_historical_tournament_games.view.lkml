@@ -10,7 +10,11 @@ view: mbb_historical_tournament_games {
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Academic Year" in Explore.
-
+dimension: prim_key {
+  type: string
+  primary_key: yes
+  sql: ${game_date} || ${win_team_id} || ${lose_team_id} ;;
+}
   dimension: academic_year {
     type: number
     sql: ${TABLE}.academic_year ;;
