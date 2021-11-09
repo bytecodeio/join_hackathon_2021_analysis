@@ -3,6 +3,12 @@ view: training_dataset {
   sql_table_name: `bytecodeio-datablocks.ncaa_basketball.mbb_teams_games_sr`
     ;;
 
+  dimension: game_id {
+    type: string
+    primary_key: yes
+    sql: ${TABLE}.game_id ;;
+  }
+
   dimension: alias {
     group_label: "Main Team"
     type: string
@@ -31,6 +37,41 @@ view: training_dataset {
     group_label: "Main Team"
     type: number
     sql: ${TABLE}.defensive_rebounds ;;
+  }
+
+  dimension: def_rebound_pct {
+    type: number
+    sql: ${defensive_rebounds} / (${defensive_rebounds} + ${opp_offensive_rebounds}) ;;
+    value_format_name: decimal_2
+  }
+
+  dimension: diff_assist_turnover_ratio {
+    type: number
+    sql: ${assists_turnover_ratio} - ${opp_assists_turnover_ratio} ;;
+    value_format_name: decimal_2
+  }
+
+  dimension: diff_field_goal_pct {
+    type: number
+    sql: ${field_goals_pct} - ${opp_field_goals_pct} ;;
+    value_format_name: decimal_2
+  }
+
+  dimension: diff_three_point_pct {
+    type: number
+    sql: ${three_points_pct} - ${opp_three_points_pct} ;;
+    value_format_name: decimal_2
+  }
+
+  dimension: diff_freethrow_pct {
+    type: number
+    sql: ${free_throws_pct} - ${opp_free_throws_pct} ;;
+    value_format_name: decimal_2
+  }
+
+  dimension: diff_point {
+    type: number
+    sql: ${points} - ${opp_points} ;;
   }
 
   dimension: fast_break_pts {
@@ -75,12 +116,6 @@ view: training_dataset {
     sql: ${TABLE}.free_throws_pct ;;
   }
 
-  dimension: game_id {
-    type: string
-    primary_key: yes
-    sql: ${TABLE}.game_id ;;
-  }
-
   dimension: home_team {
     type: yesno
     sql: ${TABLE}.home_team ;;
@@ -106,6 +141,12 @@ view: training_dataset {
     group_label: "Main Team"
     type: number
     sql: ${TABLE}.offensive_rebounds ;;
+  }
+
+  dimension: off_rebound_pct {
+    type: number
+    sql: ${offensive_rebounds} / (${offensive_rebounds} + ${opp_defensive_rebounds}) ;;
+    value_format_name: decimal_2
   }
 
   dimension: opp_alias {
@@ -258,6 +299,18 @@ view: training_dataset {
     sql: ${TABLE}.opp_three_points_pct ;;
   }
 
+  dimension: opp_three_point_pct_of_made {
+    type: number
+    sql: ${opp_three_points_made} / ${opp_field_goals_made} ;;
+    value_format_name: decimal_2
+  }
+
+  dimension: opp_three_point_pct_of_shots {
+    type: number
+    sql: ${opp_three_points_att} / ${opp_field_goals_att} ;;
+    value_format_name: decimal_2
+  }
+
   dimension: opp_turnovers {
     group_label: "Opponent"
     type: number
@@ -282,16 +335,15 @@ view: training_dataset {
     sql: ${TABLE}.opp_two_points_pct ;;
   }
 
+  dimension: overtime_game {
+    type: yesno
+    sql: ${minutes} > '3:20:00' ;;
+  }
+
   dimension: points {
     group_label: "Main Team"
     type: number
     sql: ${TABLE}.points ;;
-  }
-
-  dimension: points_game {
-    group_label: "Main Team"
-    type: number
-    sql: ${TABLE}.points_game ;;
   }
 
   dimension: points_off_turnovers {
@@ -367,6 +419,18 @@ view: training_dataset {
     sql: ${TABLE}.three_points_pct ;;
   }
 
+  dimension: three_point_pct_of_made {
+    type: number
+    sql: ${three_points_made} / ${field_goals_made} ;;
+    value_format_name: decimal_2
+  }
+
+  dimension: three_point_pct_of_shots {
+    type: number
+    sql: ${three_points_att} / ${field_goals_att} ;;
+    value_format_name: decimal_2
+  }
+
   dimension: tournament {
     type: string
     sql: ${TABLE}.tournament ;;
@@ -397,10 +461,26 @@ view: training_dataset {
   }
 
   dimension: win {
-    group_label: "Main Team"
     type: yesno
     sql: ${TABLE}.win ;;
   }
 
+  dimension: win_number {
+    hidden: yes
+    type: number
+    sql: CASE WHEN ${TABLE}.win is True THEN 1 ELSE 0 END ;;
+  }
+
+  ###### Measures ######
+
+  measure: number_of_games {
+    type: count_distinct
+    sql: ${game_id} ;;
+  }
+
+  measure: number_of_wins {
+    type: sum
+    sql: ${win_number} ;;
+  }
 
 }
