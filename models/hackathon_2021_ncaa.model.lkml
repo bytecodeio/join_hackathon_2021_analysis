@@ -25,6 +25,8 @@ persist_with: hackathon_2021_ncaa_default_datagroup
 # Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
 # Each joined view also needs to define a primary key.
 
+explore: training_dataset {}
+
 explore: mascots {}
 
 explore: mbb_games_sr {}
