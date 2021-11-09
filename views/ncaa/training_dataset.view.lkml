@@ -1,7 +1,6 @@
 
 view: training_dataset {
-  sql_table_name: `bytecodeio-datablocks.ncaa_basketball.mbb_teams_games_sr`
-    ;;
+  sql_table_name: `bytecodeio-datablocks.ncaa_basketball.mbb_teams_games_sr` ;;
 
   dimension: game_id {
     type: string

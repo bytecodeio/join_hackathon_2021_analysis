@@ -27,6 +27,8 @@ persist_with: hackathon_2021_ncaa_default_datagroup
 
 explore: training_dataset {}
 
+explore: training_dataset_dt {}
+
 explore: mascots {}
 
 explore: mbb_games_sr {}
