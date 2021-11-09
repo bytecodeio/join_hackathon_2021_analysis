@@ -62,6 +62,16 @@ view: training_dataset_dt {
                                           ORDER BY scheduled_date
                                           ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW);;
       }
+      derived_column: opp_season_points_running_total {
+        sql: SUM(opp_points) OVER (PARTITION BY season, team_id
+                               ORDER BY scheduled_date
+                               ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW);;
+      }
+      derived_column: opp_season_games_running_total {
+        sql: COUNT(number_of_games) OVER (PARTITION BY season, team_id
+                                          ORDER BY scheduled_date
+                                          ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW);;
+      }
       filters: {
         field: training_dataset.season
         value: "not 2017"
@@ -69,6 +79,10 @@ view: training_dataset_dt {
       filters: {
         field: training_dataset.tournament
         value: "NULL"
+      }
+      filters: {
+        field: training_dataset.home_team
+        value: "Yes"
       }
     }
   }
