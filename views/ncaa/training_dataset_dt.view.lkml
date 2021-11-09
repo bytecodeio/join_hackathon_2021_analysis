@@ -51,10 +51,16 @@ view: training_dataset_dt {
       column: neutral_site {}
       column: overtime_game {}
       column: win {}
+      column: number_of_games {}
       derived_column: season_points_running_total {
         sql: SUM(points) OVER (PARTITION BY season, team_id
                                ORDER BY scheduled_date
                                ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW);;
+      }
+      derived_column: season_games_running_total {
+        sql: COUNT(number_of_games) OVER (PARTITION BY season, team_id
+                                          ORDER BY scheduled_date
+                                          ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW);;
       }
       filters: {
         field: training_dataset.season
@@ -217,6 +223,14 @@ view: training_dataset_dt {
   }
   dimension: season_points_running_total {
     type: number
+  }
+  dimension: season_games_running_total {
+    type: number
+  }
+  dimension: ppg {
+    type: number
+    sql: ${season_points_running_total} / ${season_games_running_total} ;;
+    value_format_name: decimal_2
   }
 
 }
