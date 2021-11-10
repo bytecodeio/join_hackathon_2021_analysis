@@ -1,24 +1,11 @@
 # The name of this view in Looker is "Wine Attributes"
 view: wine_attributes {
-  # The sql_table_name parameter indicates the underlying database table
-  # to be used for all fields in this view.
-  sql_table_name: `wine_data.wine_attributes`
-    ;;
-  # No primary key is defined for this view. In order to join this view in an Explore,
-  # define primary_key: yes on a dimension that has no repeated values.
-
-  # Here's what a typical dimension looks like in LookML.
-  # A dimension is a groupable field that can be used to filter query results.
-  # This dimension will be called "Alcalinity of Ash" in Explore.
+  sql_table_name: `wine_data.wine_attributes` ;;
 
   dimension: alcalinity_of_ash {
     type: number
     sql: ${TABLE}.Alcalinity_of_ash ;;
   }
-
-  # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
-  # measures for this dimension, but you can also add measures of many different aggregates.
-  # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
   measure: total_alcalinity_of_ash {
     type: sum
@@ -30,7 +17,16 @@ view: wine_attributes {
     sql: ${alcalinity_of_ash} ;;
   }
 
-  dimension: alcohol {
+  # dimension: alcohol {
+  #   type: number
+  #   sql: ${TABLE}.Alcohol ;;
+  # }
+
+### Dataset mentions "a chemical analysis of wines grown in the same
+### region in Italy but derived from three different cultivars"
+### Alcohol is our best guess at the lable for the cultivars (values 1,2,3 w/ fairly even dist.)
+
+  dimension: cultivar {
     type: number
     sql: ${TABLE}.Alcohol ;;
   }
