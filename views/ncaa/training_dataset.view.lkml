@@ -430,6 +430,11 @@ view: training_dataset {
     value_format_name: decimal_2
   }
 
+  dimension: total_points {
+    type: number
+    sql: ${points} + ${opp_points} ;;
+  }
+
   dimension: tournament {
     type: string
     sql: ${TABLE}.tournament ;;
