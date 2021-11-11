@@ -61,7 +61,9 @@ view: k_means_model {
   derived_table: {
     sql_create:
       CREATE OR REPLACE MODEL ${SQL_TABLE_NAME}
-      OPTIONS(model_type='kmeans'
+      OPTIONS(
+      -- Add liquid here if possible for user selected model type/ number of clusters
+          model_type='kmeans'
         , num_clusters=3
         ) AS
       SELECT
