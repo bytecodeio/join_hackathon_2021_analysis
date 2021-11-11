@@ -76,4 +76,14 @@ view: k_means_evaluation {
           MODEL ${k_means_model.SQL_TABLE_NAME},
           (SELECT * FROM ${k_means_training_input.SQL_TABLE_NAME};;
   }
+
+  dimension: davies_bouldin_index {
+    type: number
+    sql: ${TABLE}.davies_bouldin_index ;;
+  }
+
+  dimension: mean_squared_distance {
+    type: number
+    sql: ${TABLE}.mean_squared_distance ;;
+  }
 }
