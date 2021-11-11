@@ -1,7 +1,7 @@
 # If necessary, uncomment the line below to include explore_source.
 # include: "hackathon_2021_wine.model.lkml"
 
-view: k_means_training_input {
+view: k_means_training_input_wine {
   derived_table: {
     explore_source: wine_attributes {
       column: alcalinity_of_ash {}
@@ -69,7 +69,7 @@ view: k_means_model {
         ) AS
       SELECT
         *
-      FROM ${k_means_training_input.SQL_TABLE_NAME};;
+      FROM ${k_means_training_input_wine.SQL_TABLE_NAME};;
   }
 }
 
@@ -77,7 +77,7 @@ view: k_means_evaluation {
   derived_table: {
     sql: SELECT * FROM ml.EVALUATE(
           MODEL ${k_means_model.SQL_TABLE_NAME},
-          (SELECT * FROM ${k_means_training_input.SQL_TABLE_NAME}));;
+          (SELECT * FROM ${k_means_training_input_wine.SQL_TABLE_NAME}));;
   }
 
   dimension: davies_bouldin_index {
