@@ -49,10 +49,6 @@ explore: mbb_teams_games_sr {}
 
 explore: team_colors {}
 
-explore: logreg_table{}
-
-explore: logreg_model{}
-
 explore: logreg_eval {}
 
 explore: logreg_pred {}
