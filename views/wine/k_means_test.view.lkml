@@ -65,7 +65,7 @@ view: k_means_model {
       OPTIONS(
       -- Add liquid here if possible for user selected model type/ number of clusters
           model_type='kmeans'
-        -- , num_clusters=3
+        , num_clusters=3
         ) AS
       SELECT
         *
@@ -77,7 +77,7 @@ view: k_means_evaluation {
   derived_table: {
     sql: SELECT * FROM ml.EVALUATE(
           MODEL ${k_means_model.SQL_TABLE_NAME},
-          (SELECT * FROM ${k_means_training_input.SQL_TABLE_NAME};;
+          (SELECT * FROM ${k_means_training_input.SQL_TABLE_NAME}));;
   }
 
   dimension: davies_bouldin_index {

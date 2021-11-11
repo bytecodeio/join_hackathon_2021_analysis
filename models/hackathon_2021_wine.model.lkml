@@ -14,3 +14,5 @@ persist_with: hackathon_2021_wine_default_datagroup
 explore: wine_attributes {}
 
 explore: k_means_prediction {}
+
+explore: k_means_evaluation {}
