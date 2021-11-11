@@ -56,3 +56,7 @@ explore: logreg_model{}
 explore: logreg_eval {}
 
 explore: logreg_pred {}
+
+explore: k_means_evaluation_mbb {}
+
+explore: k_means_prediction_mbb {}
