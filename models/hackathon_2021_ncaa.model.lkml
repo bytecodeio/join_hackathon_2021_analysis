@@ -49,7 +49,13 @@ explore: mbb_teams_games_sr {}
 
 explore: team_colors {}
 
+
 explore: models_source {}
+
+
+explore: regression_source {}
+
+explore: point_margin__eval{}
 
 explore: field_selection{
   join: logreg_model {
@@ -67,20 +73,6 @@ explore: field_selection{
     sql_on: 1=1 ;;
   }
 }
-
-# explore: logreg_eval {
-#   # join: logreg_model {
-
-#   #   relationship: many_to_one
-
-#   #   sql_on: 1=1 ;;
-
-#   #   fields: []
-
-#   # }
-# }
-
-# explore: logreg_pred {}
 
 explore: k_means_evaluation_mbb {}
 
