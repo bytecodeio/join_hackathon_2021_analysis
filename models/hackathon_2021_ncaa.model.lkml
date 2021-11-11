@@ -49,6 +49,15 @@ explore: mbb_teams_games_sr {}
 
 explore: team_colors {}
 
+
 explore: regression_source {}
 
 explore: point_margin__eval{}
+
+explore: logreg_eval {}
+
+explore: logreg_pred {}
+
+explore: k_means_evaluation_mbb {}
+
+explore: k_means_prediction_mbb {}

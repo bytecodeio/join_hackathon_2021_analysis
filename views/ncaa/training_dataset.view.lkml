@@ -40,7 +40,7 @@ view: training_dataset {
 
   dimension: def_rebound_pct {
     type: number
-    sql: ${defensive_rebounds} / (${defensive_rebounds} + ${opp_offensive_rebounds}) ;;
+    sql: ${defensive_rebounds} / NULLIF((${defensive_rebounds} + ${opp_offensive_rebounds}),0) ;;
     value_format_name: decimal_2
   }
 
@@ -144,7 +144,7 @@ view: training_dataset {
 
   dimension: off_rebound_pct {
     type: number
-    sql: ${offensive_rebounds} / (${offensive_rebounds} + ${opp_defensive_rebounds}) ;;
+    sql: ${offensive_rebounds} / NULLIF((${offensive_rebounds} + ${opp_defensive_rebounds}),0) ;;
     value_format_name: decimal_2
   }
 
@@ -300,13 +300,13 @@ view: training_dataset {
 
   dimension: opp_three_point_pct_of_made {
     type: number
-    sql: ${opp_three_points_made} / ${opp_field_goals_made} ;;
+    sql: ${opp_three_points_made} / NULLIF(${opp_field_goals_made},0) ;;
     value_format_name: decimal_2
   }
 
   dimension: opp_three_point_pct_of_shots {
     type: number
-    sql: ${opp_three_points_att} / ${opp_field_goals_att} ;;
+    sql: ${opp_three_points_att} / NULLIF(${opp_field_goals_att},0) ;;
     value_format_name: decimal_2
   }
 
@@ -420,14 +420,19 @@ view: training_dataset {
 
   dimension: three_point_pct_of_made {
     type: number
-    sql: ${three_points_made} / ${field_goals_made} ;;
+    sql: ${three_points_made} / NULLIF(${field_goals_made},0) ;;
     value_format_name: decimal_2
   }
 
   dimension: three_point_pct_of_shots {
     type: number
-    sql: ${three_points_att} / ${field_goals_att} ;;
+    sql: ${three_points_att} / NULLIF(${field_goals_att},0) ;;
     value_format_name: decimal_2
+  }
+
+  dimension: total_points {
+    type: number
+    sql: ${points} + ${opp_points} ;;
   }
 
   dimension: tournament {
