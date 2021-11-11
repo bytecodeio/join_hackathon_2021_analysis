@@ -49,7 +49,7 @@ view: k_means_model_mbb {
       OPTIONS(
       -- Add liquid here if possible for user selected model type/ number of clusters
           model_type='kmeans'
-        , num_clusters=3
+        -- , num_clusters=3
         ) AS
       SELECT
         *
@@ -132,4 +132,31 @@ view: k_means_prediction_mbb {
   measure: number_of_games {
     type: count
   }
+
+  measure: average_point_margin {
+    type: average
+    sql: ${point_margin} ;;
+  }
+
+  measure: avg_assists_turnover_ratio {
+    type: average
+    sql: ${assists_turnover_ratio} ;;
+  }
+
+  measure: avg_opp_assists_trunover_ratio {
+    type: average
+    sql: ${opp_assists_turnover_ratio} ;;
+  }
+
+  measure: avg_field_goal_pct {
+    type: average
+    sql: ${field_goals_pct} ;;
+  }
+
+  measure: avg_opp_field_goal_pct {
+    type: average
+    sql: ${opp_field_goals_pct} ;;
+  }
+
+
 }
