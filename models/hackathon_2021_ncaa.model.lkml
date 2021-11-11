@@ -49,9 +49,38 @@ explore: mbb_teams_games_sr {}
 
 explore: team_colors {}
 
-explore: logreg_eval {}
+explore: models_source {}
 
-explore: logreg_pred {}
+explore: field_selection{
+  join: logreg_model {
+    relationship: one_to_one
+    sql_on: 1=1 ;;
+  }
+
+  join: logreg_eval {
+    relationship: one_to_one
+    sql_on: 1=1 ;;
+  }
+
+  join: logreg_pred {
+    relationship: one_to_one
+    sql_on: 1=1 ;;
+  }
+}
+
+# explore: logreg_eval {
+#   # join: logreg_model {
+
+#   #   relationship: many_to_one
+
+#   #   sql_on: 1=1 ;;
+
+#   #   fields: []
+
+#   # }
+# }
+
+# explore: logreg_pred {}
 
 explore: k_means_evaluation_mbb {}
 
