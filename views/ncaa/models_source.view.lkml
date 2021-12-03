@@ -23,6 +23,7 @@ view: models_source {
     two_points_pct,
     win
     FROM `bytecodeio-datablocks.ncaa_basketball.mbb_teams_games_sr`
+    WHERE alias = 'UCLA'
     LIMIT 1000;;
   }
 
@@ -148,6 +149,6 @@ view: field_selection {
 
   parameter: input_variables {
     type: string
-    default_value: "point_margin,assists,field_goals_pct,two_points_pct,three_points_pct,win"
+    default_value: "assists,field_goals_pct,two_points_pct,three_points_pct"
   }
 }

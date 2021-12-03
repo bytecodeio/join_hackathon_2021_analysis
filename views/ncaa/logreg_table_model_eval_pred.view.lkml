@@ -9,10 +9,10 @@ view: logreg_model {
     MODEL_TYPE = 'LOGISTIC_REG',
     INPUT_LABEL_COLS = ['win'],
     AUTO_CLASS_WEIGHTS = TRUE,
-    MAX_ITERATIONS = 10
+    MAX_ITERATIONS = 2
     ) AS
     SELECT
-    {{field_selection.input_variables._parameter_value|remove: "'"}}
+    win,{{field_selection.input_variables._parameter_value|remove: "'"}}
     FROM ${models_source.SQL_TABLE_NAME};;
   }
 
@@ -69,9 +69,14 @@ view: logreg_eval {
 FROM
   ML.PREDICT (MODEL ${logreg_model.SQL_TABLE_NAME},
     (SELECT
-               {{field_selection.input_variables._parameter_value|remove: "'"}}
+              *
                FROM ${models_source.SQL_TABLE_NAME})
   );;
+    }
+
+    dimension: game_id {
+      type: string
+      sql: ${TABLE}.game_id ;;
     }
 
     dimension: win {

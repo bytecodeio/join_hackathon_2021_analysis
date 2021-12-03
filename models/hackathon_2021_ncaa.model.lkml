@@ -49,29 +49,41 @@ explore: mbb_teams_games_sr {}
 
 explore: team_colors {}
 
-
 explore: models_source {}
 
 
-explore: regression_source {}
-
-explore: point_margin__eval{}
 
 explore: field_selection{
+  join: models_source {
+    relationship: one_to_many
+    sql_on: 1=1 ;;
+  }
+
   join: logreg_model {
     relationship: one_to_one
     sql_on: 1=1 ;;
   }
 
-  join: logreg_eval {
+  join: point_margin_regression {
     relationship: one_to_one
     sql_on: 1=1 ;;
   }
 
+  # join: logreg_eval {
+  #   relationship: one_to_one
+  #   sql_on: 1=1 ;;
+  # }
+
   join: logreg_pred {
     relationship: one_to_one
-    sql_on: 1=1 ;;
+    sql_on: ${logreg_pred.game_id}=${models_source.game_id};;
   }
+
+  join: regression_prediction {
+    relationship: one_to_one
+    sql_on: ${regression_prediction.game_id}=${models_source.game_id} ;;
+  }
+
 }
 
 explore: k_means_evaluation_mbb {}
